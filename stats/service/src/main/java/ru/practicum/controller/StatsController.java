@@ -20,15 +20,16 @@ import java.util.List;
 @RequestMapping
 public class StatsController {
     private final StatService service;
-    public  final DateTimeFormatter FORMAT = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
+    public static final DateTimeFormatter TIME_FORMATTER = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
 
     @GetMapping("/stats")
     public List<ViewStatsDto> getStats(@RequestParam String start,
                                        @RequestParam String end,
-                                       @RequestParam (required = false, defaultValue = "") List<String> uris,
-                                       @RequestParam (required = false, defaultValue = "false")
-                                               Boolean unique) {
-        return service.getStats(LocalDateTime.parse(start,FORMAT), LocalDateTime.parse(end,FORMAT), uris, unique);
+                                       @RequestParam(required = false, defaultValue = "") List<String> uris,
+                                       @RequestParam(required = false, defaultValue = "false")
+                                       Boolean unique) {
+        return service.getStats(LocalDateTime.parse(start, TIME_FORMATTER),
+                LocalDateTime.parse(end, TIME_FORMATTER), uris, unique);
     }
 
     @PostMapping("/hit")
