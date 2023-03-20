@@ -29,16 +29,15 @@ public class StatServiceImpl implements StatService {
         if (uris == null || uris.isEmpty()) {
             return Collections.emptyList();
         }
-        if (unique) {
-            return statsRepository.getStatsUnique(start, end, uris)
-                    .stream()
-                    .map(StatsMapper::toViewStatsDto)
-                    .collect(Collectors.toList());
-        } else {
-            return statsRepository.getStatsNotUnique(start, end, uris)
-                    .stream()
-                    .map(StatsMapper::toViewStatsDto)
-                    .collect(Collectors.toList());
-        }
+        return (unique) ? statsRepository.getStatsUnique(start, end, uris)
+                .stream()
+                .map(StatsMapper::toViewStatsDto)
+                .collect(Collectors.toList()) :
+
+                statsRepository.getStatsNotUnique(start, end, uris)
+                .stream()
+                .map(StatsMapper::toViewStatsDto)
+                .collect(Collectors.toList());
+
     }
 }
