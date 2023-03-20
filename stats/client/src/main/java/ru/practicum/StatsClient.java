@@ -13,7 +13,7 @@ import java.util.List;
 import java.util.Map;
 
 @Service
-public class StatsClient extends BaseClient{
+public class StatsClient extends BaseClient {
     @Autowired
     public StatsClient(@Value("${ewm-stats-service.url}") String serverUrl, RestTemplateBuilder builder) {
         super(builder
@@ -24,7 +24,7 @@ public class StatsClient extends BaseClient{
     }
 
     public ResponseEntity<Object> getStats(LocalDateTime start, LocalDateTime end,
-                                           List<String> uris, Boolean unique){
+                                           List<String> uris, Boolean unique) {
         Map<String, Object> parameters = Map.of(
                 "start", start,
                 "end", end,
@@ -33,6 +33,7 @@ public class StatsClient extends BaseClient{
         );
         return get("/stats?start={start}&end={end}&uris={uris}&unique={unique}", parameters);
     }
+
     public ResponseEntity<Object> saveHit(EndpointHitDto endpointHitDto) {
         return post("/hit", endpointHitDto);
     }
