@@ -25,6 +25,20 @@
 		<java.version>11</java.version>
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
 		<spring-boot-starter-web.version>3.0.4</spring-boot-starter-web.version>
+		<spring-boot-starter-web.version>2.7.2</spring-boot-starter-web.version>
+		<httpclient.version>4.5.14</httpclient.version>
+		<validation-api.version>2.0.1.Final</validation-api.version>
+		<h2.version>2.1.214</h2.version>
+		<postgresql.version>42.5.2</postgresql.version>
+		<spring-boot-configuration-processor.version>2.7.2</spring-boot-configuration-processor.version>
+		<spring-boot-starter-actuator.version>3.0.4</spring-boot-starter-actuator.version>
+		<spring-boot-starter-data-jpa.version>2.7.2</spring-boot-starter-data-jpa.version>
+		<spring-data-jpa.version>2.7.2</spring-data-jpa.version>
+		<junit.version>4.13.2</junit.version>
+		<spring-boot-starter-validation.version>3.0.4</spring-boot-starter-validation.version>
+		<jakarta.validation-api.version>3.0.2</jakarta.validation-api.version>
+		<lombok.version>1.18.26</lombok.version>
+		<spring-boot-starter-test.version>3.0.4</spring-boot-starter-test.version>
 	</properties>
 	<dependencyManagement>
 		<dependencies>
@@ -36,7 +50,7 @@
 			<dependency>
 				<groupId>org.apache.httpcomponents</groupId>
 				<artifactId>httpclient</artifactId>
-				<version>4.5.14</version>
+				<version>${httpclient.version}</version>
 			</dependency>
 			<dependency>
 				<groupId>ru.practicum</groupId>
@@ -46,62 +60,67 @@
 			<dependency>
 				<groupId>org.springframework.boot</groupId>
 				<artifactId>spring-boot-starter-test</artifactId>
-				<version>3.0.4</version>
+				<version>${spring-boot-starter-test.version}</version>
 				<scope>test</scope>
 			</dependency>
 			<dependency>
 				<groupId>org.projectlombok</groupId>
 				<artifactId>lombok</artifactId>
-				<version>1.18.26</version>
+				<version>${lombok.version}</version>
 			</dependency>
 			<dependency>
 				<groupId>jakarta.validation</groupId>
 				<artifactId>jakarta.validation-api</artifactId>
-				<version>3.0.2</version>
+				<version>${jakarta.validation-api.version}</version>
 			</dependency>
 			<dependency>
 				<groupId>org.springframework.boot</groupId>
 				<artifactId>spring-boot-starter-validation</artifactId>
-				<version>3.0.4</version>
+				<version>${spring-boot-starter-validation.version}</version>
 			</dependency>
 			<dependency>
 				<groupId>junit</groupId>
 				<artifactId>junit</artifactId>
-				<version>4.13.2</version>
+				<version>${junit.version}</version>
 				<scope>test</scope>
 			</dependency>
 			<dependency>
 				<groupId>org.springframework.data</groupId>
 				<artifactId>spring-data-jpa</artifactId>
-				<version>2.7.2</version>
+				<version>${spring-data-jpa.version}</version>
 			</dependency>
 			<dependency>
 				<groupId>org.springframework.boot</groupId>
 				<artifactId>spring-boot-starter-data-jpa</artifactId>
-				<version>2.7.2</version>
+				<version>${spring-boot-starter-data-jpa.version}</version>
 			</dependency>
 			<dependency>
 				<groupId>org.springframework.boot</groupId>
 				<artifactId>spring-boot-starter-actuator</artifactId>
-				<version>3.0.4</version>
+				<version>${spring-boot-starter-actuator.version}</version>
 			</dependency>
 			<dependency>
 				<groupId>org.springframework.boot</groupId>
 				<artifactId>spring-boot-configuration-processor</artifactId>
-				<version>2.7.2</version>
+				<version>${spring-boot-configuration-processor.version}</version>
 				<optional>true</optional>
 			</dependency>
 			<dependency>
 				<groupId>org.postgresql</groupId>
 				<artifactId>postgresql</artifactId>
-				<version>42.5.2</version>
+				<version>${postgresql.version}</version>
 				<scope>runtime</scope>
 			</dependency>
 			<dependency>
 				<groupId>com.h2database</groupId>
 				<artifactId>h2</artifactId>
-				<version>2.1.214</version>
+				<version>${h2.version}</version>
 				<scope>runtime</scope>
+			</dependency>
+			<dependency>
+				<groupId>javax.validation</groupId>
+				<artifactId>validation-api</artifactId>
+				<version>${validation-api.version}</version>
 			</dependency>
 		</dependencies>
 	</dependencyManagement>
