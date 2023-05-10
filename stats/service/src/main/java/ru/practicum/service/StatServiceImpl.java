@@ -27,17 +27,25 @@ public class StatServiceImpl implements StatService {
     @Override
     public List<ViewStatsDto> getStats(LocalDateTime start, LocalDateTime end, List<String> uris, Boolean unique) {
         if (uris == null || uris.isEmpty()) {
-            return Collections.emptyList();
+            return (unique) ? statsRepository.getStatsUniqueNoUris(start, end)
+                    .stream()
+                    .map(StatsMapper::toViewStatsDto)
+                    .collect(Collectors.toList()) :
+
+                    statsRepository.getStatsNotUniqueNoUris(start, end)
+                            .stream()
+                            .map(StatsMapper::toViewStatsDto)
+                            .collect(Collectors.toList());
+        } else {
+            return (unique) ? statsRepository.getStatsUnique(start, end, uris)
+                    .stream()
+                    .map(StatsMapper::toViewStatsDto)
+                    .collect(Collectors.toList()) :
+
+                    statsRepository.getStatsNotUnique(start, end, uris)
+                            .stream()
+                            .map(StatsMapper::toViewStatsDto)
+                            .collect(Collectors.toList());
         }
-        return (unique) ? statsRepository.getStatsUnique(start, end, uris)
-                .stream()
-                .map(StatsMapper::toViewStatsDto)
-                .collect(Collectors.toList()) :
-
-                statsRepository.getStatsNotUnique(start, end, uris)
-                .stream()
-                .map(StatsMapper::toViewStatsDto)
-                .collect(Collectors.toList());
-
     }
 }
