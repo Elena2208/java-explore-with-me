@@ -9,6 +9,8 @@ services:
       - stats-db
     environment:
       - SPRING_DATASOURCE_URL=jdbc:postgresql://stats-db:5432/hits
+      - SPRING_DATASOURCE_USERNAME=root
+      - SPRING_DATASOURCE_PASSWORD=root
 
   ewm-service:
     build: ./ewm
@@ -20,7 +22,10 @@ services:
       - stats-server
     environment:
       - SPRING_DATASOURCE_URL=jdbc:postgresql://ewm-db:5432/explore-with-me
-      - FEIGN_URL=http://stats-server:9090
+      - SPRING_DATASOURCE_USERNAME=root
+      - SPRING_DATASOURCE_PASSWORD=root
+      - STATS-SERVER.URL=http://stats_service:9090
+
 
   stats-db:
     image: postgres:13.7-alpine
@@ -29,8 +34,8 @@ services:
       - "6540:5432"
     environment:
       - POSTGRES_DB=hits
-      - POSTGRES_USER=test
-      - POSTGRES_PASSWORD=test
+      - POSTGRES_USER=root
+      - POSTGRES_PASSWORD=root
 
   ewm-db:
     image: postgres:13.7-alpine
@@ -39,5 +44,5 @@ services:
       - "6541:5432"
     environment:
       - POSTGRES_DB=explore-with-me
-      - POSTGRES_USER=test
-      - POSTGRES_PASSWORD=test
+      - POSTGRES_USER=root
+      - POSTGRES_PASSWORD=root
