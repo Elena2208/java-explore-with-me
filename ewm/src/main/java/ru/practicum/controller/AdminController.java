@@ -30,7 +30,7 @@ class AdminController {
     private final CompilationService compilationService;
     private final CategoryService categoryService;
 
- /*   @PostMapping
+    @PostMapping
     @ResponseStatus(HttpStatus.CREATED)
     public UserDto createUser(
             @Valid @RequestBody NewUser newUser) {
@@ -49,7 +49,7 @@ class AdminController {
     @ResponseStatus(HttpStatus.NO_CONTENT)
     public void deleteUser(@Positive @PathVariable Long userId) {
         userService.deleteUser(userId);
-    }*/
+    }
 
     @PostMapping("/categories")
     @ResponseStatus(HttpStatus.CREATED)

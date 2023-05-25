@@ -35,7 +35,8 @@ public class PublicController {
     @ResponseStatus(HttpStatus.OK)
     public List<CategoryDto> getAllCategories(@PositiveOrZero @RequestParam(value = "from", defaultValue = "0")
                                               Integer from,
-                                              @Positive @RequestParam(value = "size", defaultValue = "10") Integer size) {
+                                              @Positive @RequestParam(value = "size", defaultValue = "10")
+                                              Integer size) {
         return categoryService.getAllCategories(from, size);
     }
 

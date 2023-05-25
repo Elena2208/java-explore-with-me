@@ -24,46 +24,39 @@ public class PrivateController {
 
     @GetMapping("/events")
     @ResponseStatus(HttpStatus.OK)
-    public List<EventShortDto> getAllUsersEvents(
-            @Positive @PathVariable Long userId,
-            @PositiveOrZero @RequestParam(value = "from", defaultValue = "0") Integer from,
-            @Positive @RequestParam(value = "size", defaultValue = "10") Integer size) {
+    public List<EventShortDto> getAllUsersEvents(@Positive @PathVariable Long userId,
+                                                 @PositiveOrZero @RequestParam(value = "from", defaultValue = "0") Integer from,
+                                                 @Positive @RequestParam(value = "size", defaultValue = "10") Integer size) {
         return eventService.getAllUsersEvents(from, size, userId);
     }
 
     @PostMapping("/events")
     @ResponseStatus(HttpStatus.CREATED)
-    public EventFullDto createEvent(
-            @Positive @PathVariable Long userId,
-            @Valid @RequestBody NewEventDto newEvent) {
+    public EventFullDto createEvent(@Positive @PathVariable Long userId, @Valid @RequestBody NewEventDto newEvent) {
         return eventService.createEvent(userId, newEvent);
     }
 
 
     @GetMapping("/events/{eventId}")
     @ResponseStatus(HttpStatus.OK)
-    public EventFullDto getFullEventById(
-            @Positive @PathVariable Long userId,
-            @Positive @PathVariable Long eventId) {
+    public EventFullDto getFullEventById(@Positive @PathVariable Long userId,
+                                         @Positive @PathVariable Long eventId) {
         return eventService.getFullEventById(userId, eventId);
     }
 
 
     @PatchMapping("/events/{eventId}")
     @ResponseStatus(HttpStatus.OK)
-    public EventFullDto updateEventByUser(
-            @Positive @PathVariable Long userId,
-            @Positive @PathVariable Long eventId,
-            @Valid @RequestBody UpdateEventRequest updatedEventByUser) {
+    public EventFullDto updateEventByUser(@Positive @PathVariable Long userId, @Positive @PathVariable Long eventId,
+                                          @Valid @RequestBody UpdateEventRequest updatedEventByUser) {
         return eventService.updateEventByUser(userId, eventId, updatedEventByUser);
     }
 
 
     @GetMapping("/events/{eventId}/requests")
     @ResponseStatus(HttpStatus.OK)
-    public List<ParticipationRequestDto> getRequestsOnEvent(
-            @Positive @PathVariable Long userId,
-            @Positive @PathVariable Long eventId) {
+    public List<ParticipationRequestDto> getRequestsOnEvent(@Positive @PathVariable Long userId,
+                                                            @Positive @PathVariable Long eventId) {
         return eventService.getRequestsOnEvent(userId, eventId);
     }
 

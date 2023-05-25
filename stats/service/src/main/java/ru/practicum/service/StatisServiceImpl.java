@@ -48,6 +48,7 @@ public class StatisServiceImpl implements StatisService {
             return repository.getUrisViews(startStat, endStat);
         }
     }
+
     private LocalDateTime parseToLocalDate(String date) {
         return LocalDateTime.parse(date, DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss"));
     }

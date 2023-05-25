@@ -13,6 +13,7 @@ public class HitMapper {
                 hit.getTimestamp()
         );
     }
+
     public Hit toHit(EndpointHitDto endpointHit) {
         return new Hit(
                 null,
