@@ -1,5 +1,4 @@
-package ru.practicum;
-
+package ru.practicum.dto;
 
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -10,8 +9,7 @@ import lombok.Setter;
 @Setter
 @AllArgsConstructor
 @Builder
-public class ViewStatsDto {
-    private String app;
-    private String uri;
-    private long hits;
+public class UserShortDto {
+    private Long id;
+    private String name;
 }
