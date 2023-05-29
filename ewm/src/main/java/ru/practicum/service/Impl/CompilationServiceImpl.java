@@ -39,10 +39,11 @@ public class CompilationServiceImpl implements CompilationService {
     @Override
     public CompilationDto updateCompilationById(Long compId, UpdateCompilationRequest updatedCompilation) {
 
-        Compilation compilationForUpdate =getCompilationById(compId);
+        Compilation compilationForUpdate = getCompilationById(compId);
         List<Event> events = new ArrayList<>();
         if (updatedCompilation.getEvents() != null) {
-            events = eventRepository.getByIdIn(updatedCompilation.getEvents());        }
+            events = eventRepository.getByIdIn(updatedCompilation.getEvents());
+        }
         Optional.ofNullable(updatedCompilation.getPinned()).ifPresent(compilationForUpdate::setPinned);
         Optional.ofNullable(updatedCompilation.getTitle()).ifPresent(compilationForUpdate::setTitle);
         Optional.ofNullable(events).ifPresent(compilationForUpdate::setEvents);

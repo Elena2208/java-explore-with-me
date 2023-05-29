@@ -16,9 +16,8 @@ public interface EventService {
     EventFullDto createEvent(Long userId, NewEventDto newEvent);
 
     List<EventFullDto> getAllEventsByAdmin(Set<Long> users, Set<EventState> states, Set<Long> categories,
-                                           LocalDateTime rangeStart, LocalDateTime rangeEnd, Integer from, Integer size);
-
-    
+                                           LocalDateTime rangeStart, LocalDateTime rangeEnd, Integer from,
+                                           Integer size);
 
     List<EventShortDto> getAllUsersEvents(Integer from, Integer size, Long userId);
 
@@ -34,8 +33,6 @@ public interface EventService {
                                           Integer size, HttpServletRequest request);
 
     EventFullDto getEventByIdPubic(Long eventId, HttpServletRequest request);
-
-
 
     EventFullDto updateEventByUser(Long userId, Long eventId, UpdateEventRequest updatedEventByUser);
 

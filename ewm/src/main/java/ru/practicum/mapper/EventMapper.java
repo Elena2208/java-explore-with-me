@@ -15,6 +15,7 @@ import java.util.stream.Collectors;
 @RequiredArgsConstructor
 public class EventMapper {
     private final UserMapper userMapper;
+
     public EventShortDto toEventShortDto(Event event) {
         Integer confirmRequests = Optional.ofNullable(event.getParticipants())
                 .orElse(new ArrayList<>()).size();
@@ -83,7 +84,7 @@ public class EventMapper {
 
     public List<EventFullDto> iterableToList(Iterable<Event> events) {
         List<EventFullDto> dtos = new ArrayList<>();
-        for (Event event: events) {
+        for (Event event : events) {
             dtos.add(toEventFullDto(event));
         }
         return dtos;

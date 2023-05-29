@@ -96,15 +96,15 @@ class AdminController {
 
     @PostMapping("/compilations")
     @ResponseStatus(HttpStatus.CREATED)
-    public CompilationDto createEvent( @Valid @RequestBody NewCompilationDto newCompilation) {
+    public CompilationDto createEvent(@Valid @RequestBody NewCompilationDto newCompilation) {
         return compilationService.createCompilation(newCompilation);
     }
 
 
     @PatchMapping("/compilations/{compId}")
     @ResponseStatus(HttpStatus.OK)
-    public CompilationDto updateCompilationById( @Positive @PathVariable Long compId,
-                                                 @Valid @RequestBody UpdateCompilationRequest updatedCompilation) {
+    public CompilationDto updateCompilationById(@Positive @PathVariable Long compId,
+                                                @Valid @RequestBody UpdateCompilationRequest updatedCompilation) {
         return compilationService.updateCompilationById(compId, updatedCompilation);
     }
 

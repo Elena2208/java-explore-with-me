@@ -15,6 +15,7 @@ import java.util.stream.Collectors;
 @RequiredArgsConstructor
 public class CompilationMapper {
     private final EventMapper eventMapper;
+
     public Compilation toCompilation(NewCompilationDto compilationDto, List<Event> events) {
         return Compilation.builder()
                 .pinned(Optional.ofNullable(compilationDto.getPinned()).orElse(false))

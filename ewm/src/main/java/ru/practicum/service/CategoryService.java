@@ -17,5 +17,6 @@ public interface CategoryService {
     void deleteCategory(Long catId);
 
     CategoryDto patchCategoryById(Long catId, NewCategoryDto updatedCategory);
+
     Category getCategoryModelById(Long catId);
 }
