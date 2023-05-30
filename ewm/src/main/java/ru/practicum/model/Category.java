@@ -1,25 +1,20 @@
 package ru.practicum.model;
 
-import jakarta.validation.constraints.NotBlank;
-import lombok.AllArgsConstructor;
-import lombok.Builder;
-import lombok.Data;
-import lombok.NoArgsConstructor;
+import lombok.*;
 
 import javax.persistence.*;
 
+@Getter
+@Setter
 @Builder
+@Entity
 @AllArgsConstructor
 @NoArgsConstructor
-@Entity
-@Data
-@Table(name = "categories")
+@Table(name = "Category")
 public class Category {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "category_id", nullable = false)
     private Long id;
-    @NotBlank
-    @Column(name = "name", nullable = false, unique = true)
+    @Column(unique = true, name = "name")
     private String name;
 }

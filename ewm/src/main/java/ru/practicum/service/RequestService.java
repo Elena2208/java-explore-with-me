@@ -1,18 +1,13 @@
 package ru.practicum.service;
 
-import ru.practicum.dto.ParticipationRequestDto;
-import ru.practicum.model.Request;
+import ru.practicum.dto.request.ParticipationRequestDto;
 
 import java.util.List;
 
 public interface RequestService {
+    ParticipationRequestDto createRequest(Long userId, Long requestDto);
 
-    ParticipationRequestDto createRequest(Long userId, Long eventId);
+    List<ParticipationRequestDto> getRequestsForUser(Long userId);
 
-    List<ParticipationRequestDto> getAllUsersRequests(Long userId);
-
-    ParticipationRequestDto cancelRequestByRequester(Long userId, Long requestId);
-
-    Request getRequestById(Long requestId);
-
+    ParticipationRequestDto cancelRequest(Long userId, Long requestId);
 }

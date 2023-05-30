@@ -1,23 +1,13 @@
 package ru.practicum.service;
 
-
-import ru.practicum.dto.NewUser;
-import ru.practicum.dto.UserDto;
-import ru.practicum.model.User;
+import ru.practicum.dto.user.NewUserDto;
 
 import java.util.List;
-import java.util.Set;
 
 public interface UserService {
-    UserDto createUser(NewUser newUser);
+    NewUserDto createUser(NewUserDto newUserDto);
 
-    List<UserDto> getAllUsers(Integer from, Integer size, Set<Long> usersIds);
+    List<NewUserDto> getUsers(List<Long> ids, Integer from, Integer size);
 
-    void deleteUser(Long userId);
-
-    User getUserById(Long userId);
-
-    boolean findUserByEmail(String email);
-
-  //  void isUserPresent(Long userId);
+    void deleteUser(Long id);
 }

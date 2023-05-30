@@ -1,28 +1,24 @@
 package ru.practicum.model;
 
-import jakarta.validation.constraints.NotBlank;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
-import lombok.Data;
+import lombok.Getter;
 import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
 
-@Data
+@Getter
 @Builder
+@Entity
 @AllArgsConstructor
 @NoArgsConstructor
-@Entity
-@Table (name = "users")
+@Table(name = "USERS")
 public class User {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "user_id", nullable = false)
     private Long id;
-    @NotBlank
-    @Column(name = "name", nullable = false, length = 255)
+    @Column(name = "name", unique = true)
     private String name;
-    @NotBlank
-    @Column(name = "email", nullable = false, unique = true, length = 320)
+    @Column(name = "email", unique = true)
     private String email;
 }

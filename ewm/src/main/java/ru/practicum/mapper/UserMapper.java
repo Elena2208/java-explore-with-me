@@ -1,32 +1,33 @@
 package ru.practicum.mapper;
 
-import org.springframework.stereotype.Component;
-import ru.practicum.dto.NewUser;
-import ru.practicum.dto.UserDto;
-import ru.practicum.dto.UserShortDto;
+import lombok.AccessLevel;
+import lombok.NoArgsConstructor;
+import ru.practicum.dto.user.NewUserDto;
+import ru.practicum.dto.user.UserShortDto;
 import ru.practicum.model.User;
 
-@Component
+@NoArgsConstructor(access = AccessLevel.PRIVATE)
 public class UserMapper {
-    public UserDto toUserDto(User user) {
-        return UserDto.builder()
+    public static NewUserDto toUserDto(User user) {
+        return NewUserDto.builder()
                 .id(user.getId())
                 .name(user.getName())
                 .email(user.getEmail())
                 .build();
     }
 
-    public UserShortDto toUserShortDto(User user) {
-        return UserShortDto.builder()
-                .id(user.getId())
-                .name(user.getName())
+    public static User toUser(NewUserDto newUserDto) {
+        return User.builder()
+                .id(newUserDto.getId())
+                .name(newUserDto.getName())
+                .email(newUserDto.getEmail())
                 .build();
     }
 
-    public User toUser(NewUser newUser) {
-        return User.builder()
-                .name(newUser.getName())
-                .email(newUser.getEmail())
+    public static UserShortDto toUserShortDto(User user) {
+        return UserShortDto.builder()
+                .id(user.getId())
+                .name(user.getName())
                 .build();
     }
 }

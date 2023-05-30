@@ -1,7 +1,13 @@
 package ru.practicum.exception;
 
-public class BadRequestException extends RuntimeException {
-    public BadRequestException(String message) {
-        super(message);
+import lombok.Getter;
+
+@Getter
+public class BadRequestException extends IllegalArgumentException {
+    private String reason;
+
+    public BadRequestException(String s, String reason) {
+        super(s);
+        this.reason = reason;
     }
 }

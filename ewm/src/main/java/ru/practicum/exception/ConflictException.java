@@ -1,7 +1,13 @@
 package ru.practicum.exception;
 
+import lombok.Getter;
+
+@Getter
 public class ConflictException extends RuntimeException {
-    public ConflictException(String message) {
+    private String reason;
+
+    public ConflictException(String message, String reason) {
         super(message);
+        this.reason = reason;
     }
 }

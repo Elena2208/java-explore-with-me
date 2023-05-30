@@ -1,35 +1,33 @@
 package ru.practicum.model;
 
-import lombok.AllArgsConstructor;
-import lombok.Builder;
-import lombok.Data;
-import lombok.NoArgsConstructor;
-import ru.practicum.enums.RequestStatus;
+import lombok.*;
+import ru.practicum.enums.State;
 
 import javax.persistence.*;
 import java.time.LocalDateTime;
 
-@Data
+@Getter
+@Setter
+@Builder
 @Entity
 @AllArgsConstructor
 @NoArgsConstructor
-@Builder
-@Table(name = "requests")
+@Table(name = "Requests",
+        uniqueConstraints = {@UniqueConstraint(name = "UniqueEventIdRequesterId",
+                columnNames = {"events_id", "requester_id"})})
+
 public class Request {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "request_id", nullable = false)
     private Long id;
+    @Column(name = "events_id")
+    private Long eventId;
     @Column(name = "created")
     private LocalDateTime created;
-    @Builder.Default
-    @Enumerated(EnumType.STRING)
-    @Column(name = "status", length = 15)
-    private RequestStatus status = RequestStatus.PENDING;
     @ManyToOne
-    @JoinColumn(name = "event_id", referencedColumnName = "event_id")
-    private Event event;
-    @ManyToOne
-    @JoinColumn(name = "user_id", referencedColumnName = "user_id")
+    @JoinColumn(name = "requester_id")
     private User requester;
+    @Enumerated(EnumType.STRING)
+    @Column(name = "status")
+    private State status;
 }

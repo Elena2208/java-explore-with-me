@@ -1,50 +1,44 @@
 package ru.practicum.mapper;
 
-import lombok.RequiredArgsConstructor;
-import org.springframework.stereotype.Component;
-import ru.practicum.dto.CompilationDto;
-import ru.practicum.dto.NewCompilationDto;
+import lombok.AccessLevel;
+import lombok.NoArgsConstructor;
+import ru.practicum.dto.compilation.CompilationDto;
+import ru.practicum.dto.compilation.NewCompilationDto;
+import ru.practicum.dto.event.EventsShortDto;
 import ru.practicum.model.Compilation;
 import ru.practicum.model.Event;
 
 import java.util.List;
-import java.util.Optional;
 import java.util.stream.Collectors;
 
-@Component
-@RequiredArgsConstructor
+@NoArgsConstructor(access = AccessLevel.PRIVATE)
 public class CompilationMapper {
-    private final EventMapper eventMapper;
 
-    public Compilation toCompilation(NewCompilationDto compilationDto, List<Event> events) {
-        return Compilation.builder()
-                .pinned(Optional.ofNullable(compilationDto.getPinned()).orElse(false))
-                .title(compilationDto.getTitle())
-                .events(events)
-                .build();
-    }
-
-    public CompilationDto toCompilationDto(Compilation compilation) {
+    public static CompilationDto toCompilationDto(Compilation compilation, List<EventsShortDto> eventsShortDtos) {
         return CompilationDto.builder()
                 .id(compilation.getId())
-                .title(compilation.getTitle())
-                .events(eventMapper.toEventShortDto(compilation.getEvents()))
+                .events(eventsShortDtos)
                 .pinned(compilation.getPinned())
+                .title(compilation.getTitle())
                 .build();
     }
 
-    public Compilation toCompilation(Compilation compilationOld, List<Event> events) {
+    public static CompilationDto toCompilationDto(Compilation compilation) {
+        return CompilationDto.builder()
+                .id(compilation.getId())
+                .events(compilation.getEvents().stream()
+                        .map(EventMapper::toEventShortDto)
+                        .collect(Collectors.toList()))
+                .pinned(compilation.getPinned())
+                .title(compilation.getTitle())
+                .build();
+    }
+
+    public static Compilation toCompilation(NewCompilationDto dto, List<Event> eventList) {
         return Compilation.builder()
-                .id(compilationOld.getId())
-                .pinned(Optional.ofNullable(compilationOld.getPinned()).orElse(false))
-                .title(compilationOld.getTitle())
-                .events(events)
+                .events(eventList)
+                .pinned(dto.getPinned())
+                .title(dto.getTitle())
                 .build();
-    }
-
-    public List<CompilationDto> toCompilationDto(List<Compilation> compilations) {
-        return compilations.stream()
-                .map(this::toCompilationDto)
-                .collect(Collectors.toList());
     }
 }
