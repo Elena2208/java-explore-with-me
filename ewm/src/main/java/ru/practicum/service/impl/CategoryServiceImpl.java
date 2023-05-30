@@ -27,13 +27,15 @@ public class CategoryServiceImpl implements CategoryService {
     private final EventsRepository eventsRepository;
 
     public NewCategoryDto createCategory(NewCategoryDto newCategoryDto) {
+        if (categoryRepository.existsByName(newCategoryDto.getName())) {
+            throw new ConflictException("ConflictException", "Имя уже занято.");
+        }
         Category category = toCategory(newCategoryDto);
         return toCategoryDto(categoryRepository.save(category));
     }
 
     public void deleteCategory(Long id) {
-        Category category = validCategory(id);
-        List<Event> events = eventsRepository.findByCategory(category);
+        List<Event> events = eventsRepository.findEventsByCategory_Id(id);
         if (!events.isEmpty()) {
             throw new ConflictException("ConflictException",
                     "Нельзя удалить категорию. Существуют события, связанные с категорией.");
@@ -42,6 +44,10 @@ public class CategoryServiceImpl implements CategoryService {
     }
 
     public NewCategoryDto updateCategory(Long id, NewCategoryDto newCategoryDto) {
+        if (categoryRepository.existsByName(newCategoryDto.getName())
+                && id != categoryRepository.findCategoryByName(newCategoryDto.getName()).getId()) {
+            throw new ConflictException("ConflictException", "Имя уже занято.");
+        }
         Category category = validCategory(id);
         ofNullable(newCategoryDto.getName()).ifPresent(category::setName);
         return toCategoryDto(categoryRepository.save(category));

@@ -47,8 +47,8 @@ public class PublicController {
     }
 
     @GetMapping("/categories/{catId}")
-    public NewCategoryDto getCategory(@PathVariable Long id) {
-        return categoryService.getCategory(id);
+    public NewCategoryDto getCategory(@PathVariable Long catId) {
+        return categoryService.getCategory(catId);
     }
 
     @GetMapping("/events")

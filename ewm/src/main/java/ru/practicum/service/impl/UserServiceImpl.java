@@ -4,6 +4,7 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Service;
 import ru.practicum.dto.user.NewUserDto;
+import ru.practicum.exception.ConflictException;
 import ru.practicum.mapper.UserMapper;
 import ru.practicum.model.User;
 import ru.practicum.repository.UserRepository;
@@ -22,6 +23,9 @@ public class UserServiceImpl implements UserService {
     private final UserRepository repository;
 
     public NewUserDto createUser(NewUserDto newUserDto) {
+        if (repository.existsByName(newUserDto.getName()))
+        {throw new ConflictException("ConflictException","Имя уже занято");
+        }
         User user = toUser(newUserDto);
         return toUserDto(repository.save(user));
     }

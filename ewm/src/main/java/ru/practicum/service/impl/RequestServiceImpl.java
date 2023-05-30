@@ -32,20 +32,26 @@ public class RequestServiceImpl implements RequestService {
 
     public ParticipationRequestDto createRequest(Long userId, Long eventId) {
         if (userId == null || eventId == null) {
-            throw new BadRequestException("BadRequestException.","Некорректный запрос.");
+            throw new BadRequestException("BadRequestException.", "Некорректный запрос.");
+        }
+        List<Request> requestDtos = requestRepository.findByEventId(eventId);
+        for (Request request : requestDtos) {
+            if (request.getRequester().getId().equals(userId)) {
+                throw new ConflictException("ConflictException", "Оставить заявку повторно невозможно");
+            }
         }
         User user = validUser(userId);
         Event event = eventRepository.findById(eventId)
-                .orElseThrow(() -> new NotFoundException("NotFoundException","Событие с таким id не найдено."));
+                .orElseThrow(() -> new NotFoundException("NotFoundException", "Событие с таким id не найдено."));
         if (event.getInitiator().getId().equals(userId)) {
-            throw new ConflictException("ConflictException","Инициатор события не может добавить запрос на участие" +
+            throw new ConflictException("ConflictException", "Инициатор события не может добавить запрос на участие" +
                     " в своём событии.");
         }
         if (event.getState().equals(State.PENDING) || event.getState().equals(State.CANCELED)) {
-            throw new ConflictException("ConflictException","Нельзя участвовать в неопубликованном событии.");
+            throw new ConflictException("ConflictException", "Нельзя участвовать в неопубликованном событии.");
         }
         if (event.getParticipantLimit() != 0 && event.getParticipantLimit() <= event.getConfirmedRequests())
-            throw new ConflictException("ConflictException","У события достигнут лимит запросов на участие.");
+            throw new ConflictException("ConflictException", "У события достигнут лимит запросов на участие.");
         Request request;
         if (!event.getRequestModeration() || event.getParticipantLimit() == 0) {
             request = Request.builder()
@@ -78,13 +84,13 @@ public class RequestServiceImpl implements RequestService {
     public ParticipationRequestDto cancelRequest(Long userId, Long requestId) {
         validUser(userId);
         Request request = requestRepository.findById(requestId)
-                .orElseThrow(() -> new NotFoundException("NotFoundException","Запроса с текущим id не найдено."));
+                .orElseThrow(() -> new NotFoundException("NotFoundException", "Запроса с текущим id не найдено."));
         request.setStatus(State.CANCELED);
         return toRequestDto(requestRepository.save(request));
     }
 
     private User validUser(Long idUser) {
         return userRepository.findById(idUser)
-                .orElseThrow(() -> new NotFoundException("NotFoundException","Пользователь с таким id  не найден"));
+                .orElseThrow(() -> new NotFoundException("NotFoundException", "Пользователь с таким id  не найден"));
     }
 }

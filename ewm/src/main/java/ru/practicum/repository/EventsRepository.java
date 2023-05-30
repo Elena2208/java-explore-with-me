@@ -16,7 +16,7 @@ public interface EventsRepository extends JpaRepository<Event, Long> {
 
     List<Event> findDByInitiator(User initiator, Pageable pageable);
 
-    List<Event> findByCategory(Category category);
+    List<Event> findEventsByCategory_Id(Long id);
 
     @Query("select e from Event e " +
             "where (:users is null or e.initiator.id in :users) " +
