@@ -23,8 +23,8 @@ public class UserServiceImpl implements UserService {
     private final UserRepository repository;
 
     public NewUserDto createUser(NewUserDto newUserDto) {
-        if (repository.existsByName(newUserDto.getName()))
-        {throw new ConflictException("ConflictException","Имя уже занято");
+        if (repository.existsByName(newUserDto.getName())) {
+            throw new ConflictException("ConflictException", "Имя уже занято");
         }
         User user = toUser(newUserDto);
         return toUserDto(repository.save(user));

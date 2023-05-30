@@ -98,5 +98,4 @@ public interface EventsRepository extends JpaRepository<Event, Long> {
                                         @Param("rangeStart") LocalDateTime rangeStart,
                                         @Param("rangeEnd") LocalDateTime rangeEnd,
                                         Pageable pageable);
-
 }
