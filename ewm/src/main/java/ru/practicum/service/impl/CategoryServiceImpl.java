@@ -14,6 +14,7 @@ import ru.practicum.repository.EventsRepository;
 import ru.practicum.service.CategoryService;
 
 import java.util.List;
+import java.util.Objects;
 import java.util.stream.Collectors;
 
 import static java.util.Optional.ofNullable;
@@ -45,7 +46,7 @@ public class CategoryServiceImpl implements CategoryService {
 
     public NewCategoryDto updateCategory(Long id, NewCategoryDto newCategoryDto) {
         if (categoryRepository.existsByName(newCategoryDto.getName())
-                && id != categoryRepository.findCategoryByName(newCategoryDto.getName()).getId()) {
+                && !Objects.equals(id, categoryRepository.findCategoryByName(newCategoryDto.getName()).getId())) {
             throw new ConflictException("ConflictException", "Имя уже занято.");
         }
         Category category = validCategory(id);
