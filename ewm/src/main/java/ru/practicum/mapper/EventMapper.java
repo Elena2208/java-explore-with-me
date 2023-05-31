@@ -4,10 +4,12 @@ import lombok.AccessLevel;
 import lombok.NoArgsConstructor;
 import ru.practicum.dto.event.EventFullDto;
 import ru.practicum.dto.event.EventsShortDto;
+import ru.practicum.dto.event.LocationDto;
 import ru.practicum.dto.event.NewEventDto;
 import ru.practicum.enums.State;
 import ru.practicum.model.Category;
 import ru.practicum.model.Event;
+import ru.practicum.model.Location;
 import ru.practicum.model.User;
 
 import java.time.LocalDateTime;
@@ -29,7 +31,7 @@ public class EventMapper {
                 .description(event.getDescription())
                 .eventDate(event.getEventDate())
                 .initiator(toUserShortDto(event.getInitiator()))
-                .location(event.getLocation())
+                .location(toLocationDto(event.getLocation()))
                 .paid(event.getPaid())
                 .participantLimit(event.getParticipantLimit())
                 .publishedOn((event.getPublishedOn() == null) ? null : event.getPublishedOn())
@@ -49,10 +51,10 @@ public class EventMapper {
                 .createdOn(dateTime)
                 .eventDate(newEventDto.getEventDate())
                 .initiator(user)
-                .location(newEventDto.getLocation())
-                .paid(newEventDto.getPaid())
+                .location(toLocation(newEventDto.getLocation()))
+                .paid(newEventDto.isPaid())
                 .participantLimit(newEventDto.getParticipantLimit())
-                .requestModeration(newEventDto.getRequestModeration())
+                .requestModeration(newEventDto.isRequestModeration())
                 .state(State.PENDING)
                 .title(newEventDto.getTitle())
                 .views(0L)
@@ -71,5 +73,17 @@ public class EventMapper {
                 .title(event.getTitle())
                 .views(event.getViews())
                 .build();
+    }
+
+    public static Location toLocation(LocationDto locationDto){
+       return Location.builder()
+                .lat(locationDto.getLat())
+                .lon(locationDto.getLon()).build();
+    }
+
+    public static LocationDto toLocationDto(Location location){
+        return LocationDto.builder()
+                .lat(location.getLat())
+                .lon(location.getLon()).build();
     }
 }

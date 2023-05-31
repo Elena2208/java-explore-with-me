@@ -8,7 +8,6 @@ import ru.practicum.exception.ConflictException;
 import ru.practicum.exception.NotFoundException;
 import ru.practicum.mapper.CategoryMapper;
 import ru.practicum.model.Category;
-import ru.practicum.model.Event;
 import ru.practicum.repository.CategoryRepository;
 import ru.practicum.repository.EventsRepository;
 import ru.practicum.service.CategoryService;
@@ -28,9 +27,6 @@ public class CategoryServiceImpl implements CategoryService {
     private final EventsRepository eventsRepository;
 
     public NewCategoryDto createCategory(NewCategoryDto newCategoryDto) {
-        if (categoryRepository.existsByName(newCategoryDto.getName())) {
-            throw new ConflictException("ConflictException", "Имя уже занято.");
-        }
         Category category = toCategory(newCategoryDto);
         return toCategoryDto(categoryRepository.save(category));
     }
@@ -44,8 +40,9 @@ public class CategoryServiceImpl implements CategoryService {
     }
 
     public NewCategoryDto updateCategory(Long id, NewCategoryDto newCategoryDto) {
+        Category categoryFind= categoryRepository.findCategoryByName(newCategoryDto.getName());
         if (categoryRepository.existsByName(newCategoryDto.getName())
-                && !Objects.equals(id, categoryRepository.findCategoryByName(newCategoryDto.getName()).getId())) {
+                && !Objects.equals(id,categoryFind.getId())) {
             throw new ConflictException("ConflictException", "Имя уже занято.");
         }
         Category category = validCategory(id);

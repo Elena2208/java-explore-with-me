@@ -15,7 +15,7 @@ public class MapperHit {
                 .app(endpointHitDto.getApp())
                 .uri(endpointHitDto.getUri())
                 .ip(endpointHitDto.getIp())
-                .timestamp(LocalDateTime.parse(endpointHitDto.getTimestamp(), Pattern.dateFormatter))
+                .timestamp(endpointHitDto.getTimestamp())
                 .build();
     }
 
@@ -24,7 +24,7 @@ public class MapperHit {
                 .app(endpointHit.getApp())
                 .uri(endpointHit.getUri())
                 .ip(endpointHit.getIp())
-                .timestamp(endpointHit.getTimestamp().format(Pattern.dateFormatter))
+                .timestamp(endpointHit.getTimestamp())
                 .build();
     }
 

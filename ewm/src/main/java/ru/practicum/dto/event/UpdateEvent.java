@@ -1,6 +1,8 @@
 package ru.practicum.dto.event;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
+import jakarta.validation.constraints.NotNull;
+import jakarta.validation.constraints.PositiveOrZero;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Getter;
@@ -8,7 +10,6 @@ import lombok.NoArgsConstructor;
 import org.hibernate.validator.constraints.Length;
 import ru.practicum.Pattern;
 import ru.practicum.enums.StateAction;
-import ru.practicum.model.Location;
 
 import java.time.LocalDateTime;
 
@@ -27,8 +28,10 @@ public class UpdateEvent {
     @JsonFormat
             (shape = JsonFormat.Shape.STRING, pattern = Pattern.DATE)
     private LocalDateTime eventDate;
-    private Location location;
+    @NotNull
+    private LocationDto location;
     private Boolean paid;
+    @PositiveOrZero
     private Long participantLimit;
     private Boolean requestModeration;
     private StateAction stateAction;

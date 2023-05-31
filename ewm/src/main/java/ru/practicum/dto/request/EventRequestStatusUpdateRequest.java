@@ -2,6 +2,7 @@ package ru.practicum.dto.request;
 
 import lombok.Builder;
 import lombok.Getter;
+import ru.practicum.enums.StatusRequest;
 
 import java.util.List;
 
@@ -11,7 +12,4 @@ public class EventRequestStatusUpdateRequest {
     private List<Long> requestIds;
     private StatusRequest status;
 }
- enum StatusRequest {
-    CONFIRMED,
-    REJECTED
-}
+

@@ -5,9 +5,9 @@ import com.fasterxml.jackson.annotation.JsonFormat;
 import lombok.*;
 import org.hibernate.validator.constraints.Length;
 import ru.practicum.Pattern;
-import ru.practicum.model.Location;
 
 import javax.validation.constraints.NotNull;
+import javax.validation.constraints.PositiveOrZero;
 import java.time.LocalDateTime;
 
 
@@ -31,10 +31,11 @@ public class NewEventDto {
             (shape = JsonFormat.Shape.STRING, pattern = Pattern.DATE)
     private LocalDateTime eventDate;
     @NotNull
-    private Location location;
-    private Boolean paid;
+    private LocationDto location;
+    private boolean paid;
+    @PositiveOrZero
     private Long participantLimit;
-    private Boolean requestModeration;
+    private boolean requestModeration;
     @NotNull
     @Length(min = 3, max = 120)
     private String title;

@@ -22,8 +22,6 @@ public class Event {
     @ManyToOne
     @JoinColumn(name = "category_id")
     private Category category;
-    @Column(name = "confirmed_requests")
-    private Long confirmedRequests;
     @Column(name = "created_on")
     private LocalDateTime createdOn;
     @Column(name = "description")
@@ -49,6 +47,8 @@ public class Event {
     private State state;
     @Column(name = "title")
     private String title;
-    @Column(name = "views")
+    @Transient
     private Long views;
+    @Transient
+    private Long confirmedRequests;
 }

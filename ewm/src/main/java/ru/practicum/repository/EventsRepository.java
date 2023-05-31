@@ -1,6 +1,5 @@
 package ru.practicum.repository;
 
-import org.springframework.data.domain.Example;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
@@ -15,8 +14,6 @@ import java.util.List;
 public interface EventsRepository extends JpaRepository<Event, Long> {
 
     List<Event> findDByInitiator(User initiator, Pageable pageable);
-
-    List<Event> findEventsByCategory_Id(Long id);
 
     boolean existsEventsByCategory_Id(Long id);
 
@@ -41,8 +38,7 @@ public interface EventsRepository extends JpaRepository<Event, Long> {
             "and (:paid is null or e.paid = :paid) " +
             "and (cast(:rangeStart as java.time.LocalDateTime) is null or e.eventDate >= :rangeStart) " +
             "and (cast(:rangeEnd as java.time.LocalDateTime) is null or e.eventDate <= :rangeEnd)" +
-            "and (e.participantLimit > e.confirmedRequests)" +
-            "order by e.eventDate desc")
+                     "order by e.eventDate desc")
     List<Event> getAvailableEventsWithFiltersDateSorted(@Param("text") String text,
                                                         @Param("state") State state,
                                                         @Param("categories") List<Long> categories,
@@ -58,8 +54,7 @@ public interface EventsRepository extends JpaRepository<Event, Long> {
             "and (:categories is null or e.category.id in :categories) " +
             "and (:paid is null or e.paid = :paid) " +
             "and (cast(:rangeStart as java.time.LocalDateTime) is null or e.eventDate >= :rangeStart) " +
-            "and (cast(:rangeEnd as java.time.LocalDateTime) is null or e.eventDate <= :rangeEnd)" +
-            "and (e.participantLimit > e.confirmedRequests)")
+            "and (cast(:rangeEnd as java.time.LocalDateTime) is null or e.eventDate <= :rangeEnd)"  )
     List<Event> getAvailableEventsWithFilters(@Param("text") String text,
                                               @Param("state") State state,
                                               @Param("categories") List<Long> categories,

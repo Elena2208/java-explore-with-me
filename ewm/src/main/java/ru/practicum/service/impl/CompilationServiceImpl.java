@@ -31,9 +31,6 @@ public class CompilationServiceImpl implements CompilationService {
     private final EventsRepository eventsRepository;
 
     public CompilationDto createCompilation(NewCompilationDto dto) {
-        if (dto.getPinned() == null) {
-            dto.setPinned(false);
-        }
         Compilation compilation;
         List<Event> eventList = new ArrayList<>();
         List<EventsShortDto> eventsShortDtos = new ArrayList<>();
@@ -61,15 +58,17 @@ public class CompilationServiceImpl implements CompilationService {
             eventsShortDtos = eventList.stream()
                     .map(EventMapper::toEventShortDto)
                     .collect(Collectors.toList());
-            compilation.setEvents(eventList);
+            compilation.setEvents(eventList.stream().collect(Collectors.toSet()));
         } else {
-            eventList = compilation.getEvents();
+            eventList = compilation.getEvents().stream().collect(Collectors.toList());
             eventsShortDtos = eventList.stream()
                     .map(EventMapper::toEventShortDto)
                     .collect(Collectors.toList());
         }
         ofNullable(dto.getPinned()).ifPresent(compilation::setPinned);
-        ofNullable(dto.getTitle()).ifPresent(compilation::setTitle);
+        if (!dto.getTitle().isBlank()) {
+            compilation.setTitle(dto.getTitle());
+        }
         Compilation newCompilation = compilationRepository.save(compilation);
         return toCompilationDto(newCompilation, eventsShortDtos);
     }
