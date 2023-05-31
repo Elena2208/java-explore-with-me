@@ -1,5 +1,6 @@
 package ru.practicum.repository;
 
+import org.springframework.data.domain.Example;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
@@ -16,6 +17,8 @@ public interface EventsRepository extends JpaRepository<Event, Long> {
     List<Event> findDByInitiator(User initiator, Pageable pageable);
 
     List<Event> findEventsByCategory_Id(Long id);
+
+    boolean existsEventsByCategory_Id(Long id);
 
     @Query("select e from Event e " +
             "where (:users is null or e.initiator.id in :users) " +
